@@ -3,34 +3,36 @@ package controller;
 import java.util.EmptyStackException;
 
 import models.Node;
+import models.NodeGeneric;
 
-public class Stack {
-    private Node top; // Nodo cima de la pila
-    private int size; // Tamaño de la pila
+public class StackG<T> {
+    private NodeGeneric<T> top;
+    private int size;
 
-    public Stack() {
+    public StackG() {
         this.top = null;
+        this.size = 0;
     }
 
     public void push(int value) {
-        Node newNode = new Node(value);
+        NodeGeneric<T> newNode = new NodeGeneric(value);
         newNode.setNext(top); // El nuevo nodo apunta al nodo actual en la cima
         top = newNode;
         size++; // Incrementa el tamaño de la pila
     }
 
-    public int pop() {
+    public T pop() {
         if (top == null) {
             throw new EmptyStackException();
 
         }
-        int value = top.getValue(); // Obtiene el valor del nodo en la cima
+        T value = top.getValue(); // Obtiene el valor del nodo en la cima
         top = top.getNext(); // Elimina el nodo de la cima
-        size--; // Decrementa el tamaño de la pila
-        return value;
+        size--;
+        return value;// Decrementa el tamaño de la pila
     }
 
-    public int peek() {
+    public T peek() {
         if (top == null) {
             throw new EmptyStackException();
         }
@@ -42,7 +44,7 @@ public class Stack {
     }
 
     public void print() {
-        Node current = top; // Comienza desde la cima de la pila
+        NodeGeneric<T> current = top; // Comienza desde la cima de la pila
 
         while (current != null) {
             System.out.print(current.getValue() + " | "); // Imprime el valor del nodo actual
